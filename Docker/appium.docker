@@ -23,15 +23,15 @@ WORKDIR /root
 # salt-minion
 #   Infrastructure management (client-side)
 #=======================================================================
-
-RUN apt-get update
-RUN apt install openjdk-8-jdk
-RUN apt-get --no-install-recommends install
-RUN ca-certificates
-RUN curl
-RUN wget
-RUN salt-minion \
-  && rm -rf /var/lib/apt/lists/*
+RUN java --version
+#RUN apt-get update
+#RUN apt install openjdk-8-jdk
+#RUN apt-get --no-install-recommends install
+#RUN ca-certificates
+#RUN curl
+#RUN wget
+#RUN salt-minion \
+#  && rm -rf /var/lib/apt/lists/*
 
 #=======================================================================
 # Set JAVA_HOME
