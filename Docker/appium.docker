@@ -100,10 +100,14 @@ EXPOSE 4723
 
 RUN ls -lah
 RUN pwd
-COPY ./entry_point.sh /root
-COPY ./generate_config.sh /root
-COPY ./wireless_connect.sh /root
-COPY ./wireless_autoconnect.sh /root
+
+
+COPY Appium/Docker/entry_point.sh /root
+
+
+#COPY ./generate_config.sh /root
+#COPY ./wireless_connect.sh /root
+#COPY ./wireless_autoconnect.sh /root
 
 RUN cat /root/entrypoint.sh
 RUN chmod +x /root/entry_point.sh && \
