@@ -100,10 +100,10 @@ EXPOSE 4723
 
 RUN ls -lah
 RUN pwd
-ADD entry_point.sh /root/
-ADD generate_config.sh /root/
-ADD wireless_connect.sh /root/
-ADD wireless_autoconnect.sh /root/
+ADD entry_point.sh /root
+ADD generate_config.sh /root
+ADD wireless_connect.sh /root
+ADD wireless_autoconnect.sh /root
 RUN ls
 
 
