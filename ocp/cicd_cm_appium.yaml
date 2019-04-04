@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chronograf
+  labels:
+    metrics: "chronograf"
+    app: "cicd-chronograf"
+    version: "1.7.8"
+  namespace: ebis-dev

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ImageStream
+metadata:
+  name: chronograf
+  labels:
+    metrics: "chronograf"
+    app: "cicd-inluxdb"
+    version: "1.7.8"
