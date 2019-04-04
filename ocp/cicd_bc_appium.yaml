@@ -46,7 +46,7 @@ spec:
       # - name: PORT
       #   value: "8888"
       #   protocol: TCP
-      dockerfilePath: "appium.docker"
+      dockerfilePath: "Docker/appium.docker"
   output:
     to:
       kind: "ImageStreamTag"
