@@ -30,7 +30,9 @@ RUN	apt-get install -y build-essential git
 RUN apt-get install -y openjdk-8-jre openjdk-8-jdk
 RUN apt-get install -y ca-certificates \
 	curl \
-	wget \ 
+	wget \
+	zip \
+    unzip \
 	salt-minion \
   && rm -rf /var/lib/apt/lists/*
 
