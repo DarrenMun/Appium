@@ -25,7 +25,7 @@ WORKDIR /root
 #=======================================================================
 
 RUN apt-get update
-RUN openjdk-8-jdk
+RUN apt install openjdk-8-jdk
 RUN apt-get --no-install-recommends install
 RUN ca-certificates
 RUN curl
