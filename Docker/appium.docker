@@ -99,7 +99,7 @@ EXPOSE 4723
 
 
 
- 
+RUN mkdir /root
 RUN pwd
 RUN ls -lah
 
