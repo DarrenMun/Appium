@@ -3,15 +3,15 @@ kind: DeploymentConfig
 metadata:
   name: "chronograf"
   labels:
-    metrics: "chronograf"
+    metrics: "appium"
 spec:
   replicas: 1
   selector:
-    metrics: "chronograf"
+    metrics: "appium"
   template:
     metadata:
       labels:
-        metrics: "chronograf"
+        metrics: "appium"
     spec:
       resources:
         limits:
@@ -21,28 +21,28 @@ spec:
           cpu: 500m
           memory: 512Mi
       containers:
-      - name: chronograf
-        image: "docker-registry.default.svc:5000/ebis-dev/chronograf:1.7.8"
+      - name: appium
+        image: "appium:1.6.3"
         ports:
-        - containerPort: 8888
+        - containerPort: 4723
           protocol: TCP
         livenessProbe:
           initialDelaySeconds: 120
           tcpSocket:
-            port: 8888
+            port: 4723
           timeoutSeconds: 5
         readinessProbe:
           initialDelaySeconds: 180
           tcpSocket:
-            port: 8888
+            port: 4723
           timeoutSeconds: 5
         volumeMounts:
-        - mountPath: "/var/lib/chronograf"
-          name: "chronograf"
+        - mountPath: "/var/lib/appium"
+          name: "appium"
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       volumes:
-      - name: "chronograf"
+      - name: "appium"
         persistentVolumeClaim:
-          claimName: "chronograf"
+          claimName: "appium"
     test: false

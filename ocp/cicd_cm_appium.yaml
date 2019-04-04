@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: chronograf
+  name: appium
   labels:
-    metrics: "chronograf"
-    app: "cicd-chronograf"
-    version: "1.7.8"
-  namespace: ebis-dev
+    metrics: "appium"
+    app: "cicd-appium"
+    version: "1.6.3"
+  namespace: appium server
