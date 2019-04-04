@@ -100,13 +100,12 @@ EXPOSE 4723
 
 RUN ls -lah
 RUN pwd
-COPY entry_point.sh /root
-COPY generate_config.sh /root
-COPY wireless_connect.sh /root
-COPY wireless_autoconnect.sh /root
+COPY ./entry_point.sh /root
+COPY ./generate_config.sh /root
+COPY ./wireless_connect.sh /root
+COPY ./wireless_autoconnect.sh /root
 
-
-
+RUN cat /root/entrypoint.sh
 RUN chmod +x /root/entry_point.sh && \
     chmod +x /root/generate_config.sh && \
     chmod +x /root/wireless_connect.sh && \
