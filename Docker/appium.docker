@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-LABEL maintainer "Tester2"
+LABEL maintainer "Tester"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -23,15 +23,16 @@ WORKDIR /root
 # salt-minion
 #   Infrastructure management (client-side)
 #=======================================================================
-RUN java --version
-#RUN apt-get update
-#RUN apt install openjdk-8-jdk
-#RUN apt-get --no-install-recommends install
-#RUN ca-certificates
-#RUN curl
-#RUN wget
-#RUN salt-minion \
-#  && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get -qqy update && \
+    add-apt-repository -y ppa:webupd8team/java && \
+  	apt-get update && \
+  	apt-get install -y oracle-java8-installer --allow-unauthenticated && \
+    ca-certificates && \
+    curl && \
+    wget && \
+    salt-minion \
+  && rm -rf /var/lib/apt/lists/*
 
 #=======================================================================
 # Set JAVA_HOME
@@ -87,15 +88,14 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     apt-get clean
 
-#==========================================================================================
+
 #   Appium port
 #=========================================================================================
 EXPOSE 4723
 
-#=========================================================================================
+#==========================================================================================
 # Scripts to run appium and connect to Selenium Grid
-#=========================================================================================
-
+#==========================================================================================
 COPY entry_point.sh \
      generate_config.sh \
      wireless_connect.sh \
