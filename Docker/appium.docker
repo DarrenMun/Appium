@@ -25,12 +25,9 @@ WORKDIR /root
 #=======================================================================
 
 RUN apt-get -qqy update && \
-    apt-get -qqy --no-install-recommends install \
     openjdk-8-jdk \
-    ca-certificates \
     curl \
     wget \
-    salt-minion \
   && rm -rf /var/lib/apt/lists/*
 
 #=======================================================================
