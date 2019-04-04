@@ -24,10 +24,10 @@ WORKDIR /root
 #   Infrastructure management (client-side)
 #=======================================================================
 
-RUN apt-get -qqy update
-RUN add-apt-repository -y ppa:webupd8team/java
-RUN	apt-get update 
-RUN	apt-get install -y oracle-java8-installer --allow-unauthenticated 
+RUN apt-get update && apt-get upgrade -y
+RUN	apt-get install -y software-properties-common
+RUN	apt-get install -y build-essential git
+RUN apt-get install -y openjdk-8-jre openjdk-8-jdk
 RUN ca-certificates 
 RUN curl 
 RUN wget 
