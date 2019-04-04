@@ -98,8 +98,10 @@ EXPOSE 4723
 #==========================================================================================
 
 
-RUN ls -lah
+
+ 
 RUN pwd
+RUN ls -lah
 
 
 COPY Docker/entry_point.sh /root
