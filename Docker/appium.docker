@@ -28,10 +28,10 @@ RUN apt-get update && apt-get upgrade -y
 RUN	apt-get install -y software-properties-common
 RUN	apt-get install -y build-essential git
 RUN apt-get install -y openjdk-8-jre openjdk-8-jdk
-RUN ca-certificates 
-RUN curl 
-RUN wget 
-RUN salt-minion \
+RUN apt-get install ca-certificates 
+RUN apt-get install curl 
+RUN apt-get install wget 
+RUN apt-get install salt-minion \
   && rm -rf /var/lib/apt/lists/*
 
 #=======================================================================
