@@ -24,14 +24,14 @@ WORKDIR /root
 #   Infrastructure management (client-side)
 #=======================================================================
 
-RUN apt-get -qqy update && \
-    add-apt-repository -y ppa:webupd8team/java && \
-  	apt-get update && \
-  	apt-get install -y oracle-java8-installer --allow-unauthenticated && \
-    ca-certificates && \
-    curl && \
-    wget && \
-    salt-minion \
+RUN apt-get -qqy update
+RUN add-apt-repository -y ppa:webupd8team/java
+RUN	apt-get update 
+RUN	apt-get install -y oracle-java8-installer --allow-unauthenticated 
+RUN ca-certificates 
+RUN curl 
+RUN wget 
+RUN salt-minion \
   && rm -rf /var/lib/apt/lists/*
 
 #=======================================================================
