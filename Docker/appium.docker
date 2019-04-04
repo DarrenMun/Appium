@@ -97,19 +97,12 @@ EXPOSE 4723
 # Scripts to run appium and connect to Selenium Grid
 #==========================================================================================
 
-
-
-RUN mkdir /root
-RUN pwd
-RUN ls -lah
-
-
 COPY Docker/entry_point.sh /root
+COPY Docker/generate_config.sh /root
+COPY Docker/wireless_connect.sh /root
+COPY Docker/wireless_autoconnect.sh /root
 
-
-#COPY ./generate_config.sh /root
-#COPY ./wireless_connect.sh /root
-#COPY ./wireless_autoconnect.sh /root
+RUN ls -lah
 
 RUN cat /root/entrypoint.sh
 RUN chmod +x /root/entry_point.sh && \
