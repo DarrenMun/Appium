@@ -24,10 +24,13 @@ WORKDIR /root
 #   Infrastructure management (client-side)
 #=======================================================================
 
-RUN apt-get -qqy update && \
-    openjdk-8-jdk \
-    curl \
-    wget \
+RUN apt-get -qqy update
+RUN apt-get -qqy --no-install-recommends install
+RUN openjdk-8-jdk
+RUN ca-certificates
+RUN curl
+RUN wget
+RUN salt-minion \
   && rm -rf /var/lib/apt/lists/*
 
 #=======================================================================
