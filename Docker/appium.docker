@@ -24,9 +24,9 @@ WORKDIR /root
 #   Infrastructure management (client-side)
 #=======================================================================
 
-RUN apt-get -qqy update
-RUN apt-get -qqy --no-install-recommends install
+RUN apt-get update
 RUN openjdk-8-jdk
+RUN apt-get --no-install-recommends install
 RUN ca-certificates
 RUN curl
 RUN wget
