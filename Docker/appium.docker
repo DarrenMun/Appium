@@ -96,6 +96,9 @@ EXPOSE 4723
 #==========================================================================================
 # Scripts to run appium and connect to Selenium Grid
 #==========================================================================================
+
+RUN pwd
+
 COPY entry_point.sh /root/
 COPY generate_config.sh /root/
 COPY wireless_connect.sh /root/
