@@ -101,9 +101,9 @@ RUN pwd
 RUN ls -lah
 RUN ls
 #COPY entry_point.sh /root/
-COPY generate_config.sh /root/
-COPY wireless_connect.sh /root/
-COPY wireless_autoconnect.sh /root/
+cp generate_config.sh /root/
+cp wireless_connect.sh /root/
+cp wireless_autoconnect.sh /root/
 
 RUN chmod +x /root/entry_point.sh && \
     chmod +x /root/generate_config.sh && \
