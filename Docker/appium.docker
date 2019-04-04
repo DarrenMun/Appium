@@ -102,7 +102,7 @@ RUN ls -lah
 RUN pwd
 
 
-COPY Appium/Docker/entry_point.sh /root
+COPY Docker/entry_point.sh /root
 
 
 #COPY ./generate_config.sh /root
