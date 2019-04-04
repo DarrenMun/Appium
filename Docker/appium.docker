@@ -47,8 +47,6 @@ ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre" \
 # Install Android SDK
 #========================================================================
 
-
-
 ARG SDK_VERSION=sdk-tools-linux-3859397
 ARG ANDROID_BUILD_TOOLS_VERSION=26.0.0
 ARG ANDROID_PLATFORM_VERSION="android-25"
@@ -98,10 +96,10 @@ EXPOSE 4723
 #==========================================================================================
 # Scripts to run appium and connect to Selenium Grid
 #==========================================================================================
-COPY entry_point.sh && \
-    generate_config.sh && \
-    wireless_connect.sh && \
-    wireless_autoconnect.sh && \
+COPY entry_point.sh \
+    generate_config.sh \
+    wireless_connect.sh \
+    wireless_autoconnect.sh \
     /root/
 
 RUN chmod +x /root/entry_point.sh && \
