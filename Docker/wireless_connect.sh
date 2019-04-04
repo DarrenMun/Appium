@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ ! -z "$ANDROID_DEVICES" ]; then
     connected_devices=$(adb devices)
