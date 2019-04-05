@@ -5,7 +5,7 @@ metadata:
   labels:
     metrics: "appium"
     app: "cicd-appium"
-    version: "1.7.8"
+    version: "1.6.3"
 spec:
   host: ''
   port:
