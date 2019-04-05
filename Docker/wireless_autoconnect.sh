@@ -14,6 +14,4 @@ if [ ! -z "$REMOTE_ADB" ]; then
             /root/wireless_connect.sh
         done
     }
-
-    ( trap "true" HUP ; connect ) >/dev/null 2>/dev/null </dev/null & disown
-fi
+# ( trap "true" HUP ; connect ) >/dev/null 2>/dev/null </dev/null & disown
