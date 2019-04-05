@@ -1,13 +1,13 @@
 #!/bin/bash
 
 if [ ! -z "$REMOTE_ADB" ]; then
-    echo "inside If statement"
+    echo "inside If statement";
 
     if [ -z "$REMOTE_ADB_POLLING_SEC" ]; then
         REMOTE_ADB_POLLING_SEC=5
     fi
-    echo "Passed"
-    
+    echo "Passed";
+
     function connect() {
         while true
         do
