@@ -7,7 +7,7 @@ if [ ! -z "$REMOTE_ADB" ]; then
         REMOTE_ADB_POLLING_SEC=5
     fi
     echo "Passed";
-
+fi
     function connect() {
         while true
         do
