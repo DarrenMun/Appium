@@ -105,10 +105,15 @@ COPY Docker/wireless_autoconnect.sh /root
 
 
 
+
 RUN chmod +x /root/entry_point.sh && \
     chmod +x /root/generate_config.sh && \
     chmod +x /root/wireless_connect.sh && \
     chmod +x /root/wireless_autoconnect.sh
+
+RUN chgrp -R 0 /var/log/ /root && \
+   chmod -Rf g+rwx /var/log/ /root
+
 RUN ls 
 #========================================
 # Run xvfb and appium server
