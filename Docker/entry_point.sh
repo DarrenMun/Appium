@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 NODE_CONFIG_JSON="/root/nodeconfig.json"
 APPIUM_LOG="/var/log/appium.log"
