@@ -8,14 +8,14 @@ if [ ! -z "$REMOTE_ADB" ]; then
     fi
     echo "Passed";
 fi
-    function connect() {
-        while true
-        do
+    #function connect() {
+    #    while true
+    #    do
             #to avoid immediate run
-            sleep ${REMOTE_ADB_POLLING_SEC}
-            /root/wireless_connect.sh
-        done
-    }
+    #        sleep ${REMOTE_ADB_POLLING_SEC}
+    #        /root/wireless_connect.sh
+    #    done
+    #}
 
-    ( trap "true" HUP ; connect ) >/dev/null 2>/dev/null </dev/null & disown
+    #( trap "true" HUP ; connect ) >/dev/null 2>/dev/null </dev/null & disown
 fi
