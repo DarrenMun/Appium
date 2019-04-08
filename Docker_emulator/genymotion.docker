@@ -1,9 +1,8 @@
 FROM ubuntu:16.04
 
-LABEL maintainer "Tester"
+MAINTAINER "Tester"
 
 ENV GENYMOTION_VERSION=3.0.1
-
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         ca-certificates \
@@ -11,53 +10,24 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         openssl \
         wget
 
-
-RUN echo "Completed First Step"
-
 RUN wget -O genymotion.bin https://dl.genymotion.com/releases/genymotion-3.0.1/genymotion-3.0.1-linux_x64.bin\
 	chmod +x ./genymotion.bin \
  	yes | ./genymotion.bin \
  	rm genymotion.bin
-#COPY genymotion/generate_config.sh genymotion/geny_start.sh genymotion/enable_adb.sh /root/
+
+RUN pwd
+RUN ls -lah
 
 RUN echo "Installing Virtual Box"
 
-
-#=============================================================================================================
-#Install VirtualBox
-#=============================================================================================================
 RUN wget http://download.virtualbox.org/virtualbox/5.1.26/virtualbox-5.1_5.1.26-117224~Ubuntu~xenial_amd64.deb &&\ 
 	dpkg -i virtualbox* &&\
 	rm -fr virtualbox*
-
-
-#RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
-#RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
-#RUN apt-get update && apt-get install -y
-#RUN apt-get install virtualbox-5.0
-
-
-RUN echo "Installation of GenyMotion Completed"
 
 EXPOSE 4723 6080 5555
 
 RUN echo "Exposed Ports"
 
-#RUN mkdir -p /genymotion/
-#RUN apt-install bzip2 \
-#	libgstreamer-plugins-base0.10-dev \
-#   libxcomposite-dev \
-#   libxslt1.1
-
-#RUN chmod +x /tmp/genymotion-${GENYMOTION_VERSION}-linux_x64.bin \
-#    && mkdir -p /root/.Genymobile/
-
 RUN ls -lah
-
-#RUN rm -f /tmp/genymotion-${GENYMOTION_VERSION}-linux_x64.bin \
-#    && apt-get autoremove -y --purge \
-#    wget \
-#    && apt-get clean \
-#    && rm -rf /var/lib/apt/lists/*
 	
 CMD ["/genymotion/genymotion"]
