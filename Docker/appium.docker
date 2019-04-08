@@ -104,8 +104,6 @@ COPY Docker/wireless_connect.sh /root
 COPY Docker/wireless_autoconnect.sh /root
 
 
-
-
 RUN chmod +x /root/entry_point.sh && \
     chmod +x /root/generate_config.sh && \
     chmod +x /root/wireless_connect.sh && \
