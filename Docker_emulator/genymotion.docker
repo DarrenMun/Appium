@@ -10,8 +10,7 @@ ENV GENY_VERSION=3.0.1
 #RUN openssl
 #RUN wget
 
-RUN apt-get update && apt-get upgrade -y \
-    xterm \ 
+RUN apt-get install xterm -y \ 
     supervisor \
     socat \
     keychain \
