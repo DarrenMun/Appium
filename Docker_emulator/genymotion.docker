@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 LABEL maintainer "Tester"
 
-ENV GENY_VERSION=3.0.1
+ENV GENYMOTION_VERSION=3.0.1
 
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -17,9 +17,9 @@ RUN echo "Completed First Step"
 RUN echo "Installing Virtual Box"
 
 RUN wget -nv -O genymotion.bin "https://dl.genymotion.com/releases/genymotion-${GENYMOTION_VERSION}/genymotion-${GENYMOTION_VERSION}-linux_x64.bin" \
-&& chmod +x ./genymotion.bin \
- && yes | ./genymotion.bin \
- && rm genymotion.bin
+	&& chmod +x ./genymotion.bin \
+ 	&& yes | ./genymotion.bin \
+ 	&& rm genymotion.bin
 COPY genymotion/generate_config.sh genymotion/geny_start.sh genymotion/enable_adb.sh /root/
 
 RUN echo "deb http://download.virtualbox.org/virtualbox/debian xenial contrib" >> /etc/apt/sources.list
@@ -40,12 +40,12 @@ RUN apt-install bzip2 \
     libxcomposite-dev \
     libxslt1.1
 
-RUN chmod +x /tmp/genymotion-${GENY_VERSION}-linux_x64.bin \
+RUN chmod +x /tmp/genymotion-${GENYMOTION_VERSION}-linux_x64.bin \
     && mkdir -p /root/.Genymobile/
 
 RUN ls -lah
 
-RUN rm -f /tmp/genymotion-${GENY_VERSION}-linux_x64.bin \
+RUN rm -f /tmp/genymotion-${GENYMOTION_VERSION}-linux_x64.bin \
     && apt-get autoremove -y --purge \
     wget \
     && apt-get clean \
