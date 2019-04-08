@@ -43,18 +43,18 @@ EXPOSE 4723 6080 5555
 
 RUN echo "Exposed Ports"
 
-RUN mkdir -p /genymotion/
-RUN apt-install bzip2 \
+#RUN mkdir -p /genymotion/
+#RUN apt-install bzip2 \
 	libgstreamer-plugins-base0.10-dev \
     libxcomposite-dev \
     libxslt1.1
 
-RUN chmod +x /tmp/genymotion-${GENYMOTION_VERSION}-linux_x64.bin \
+#RUN chmod +x /tmp/genymotion-${GENYMOTION_VERSION}-linux_x64.bin \
     && mkdir -p /root/.Genymobile/
 
 RUN ls -lah
 
-RUN rm -f /tmp/genymotion-${GENYMOTION_VERSION}-linux_x64.bin \
+#RUN rm -f /tmp/genymotion-${GENYMOTION_VERSION}-linux_x64.bin \
     && apt-get autoremove -y --purge \
     wget \
     && apt-get clean \
