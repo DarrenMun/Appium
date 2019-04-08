@@ -4,7 +4,7 @@ MAINTAINER "Tester"
 
 ENV GENYMOTION_VERSION=3.0.1
 
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     linux-headers-4.4.0-22-generic \
     openssl \
