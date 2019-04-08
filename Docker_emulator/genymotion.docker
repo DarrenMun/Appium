@@ -5,26 +5,11 @@ LABEL maintainer "Tester"
 ENV GENY_VERSION=3.0.1
 
 
-#RUN ca-certificates
-#RUN linux-headers-4.4.0-22-generic
-#RUN openssl
-#RUN wget
-
-
-RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
-    xterm \ 
-    supervisor \
-    socat \
-    keychain \
-    bzip2 \
-    x11vnc \
-    openbox \
-    menu \
-    python-numpy \
-    net-tools \
-    ffmpeg \
-    jq \
- && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        ca-certificates \
+        linux-headers-4.4.0-22-generic \
+        openssl \
+        wget
 
 
 RUN echo "Completed First Step"
@@ -57,7 +42,6 @@ RUN apt-install bzip2 \
 
 RUN chmod +x /tmp/genymotion-${GENY_VERSION}-linux_x64.bin \
     && mkdir -p /root/.Genymobile/
-
 
 RUN ls -lah
 
