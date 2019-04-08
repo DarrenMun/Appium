@@ -16,8 +16,9 @@ RUN echo "Completed First Step"
 
 RUN echo "Installing Virtual Box"
 
-RUN wget -O "https://dl.genymotion.com/releases/genymotion-${GENYMOTION_VERSION}/genymotion-${GENYMOTION_VERSION}-linux_x64.bin"\
-	&& chmod +x ./genymotion.bin \
+RUN wget -nv -O genymotion.bin "https://dl.genymotion.com/releases/genymotion-3.0.1/genymotion-3.0.1-linux_x64.bin"
+
+RUN chmod +x ./genymotion.bin \
  	&& yes | ./genymotion.bin \
  	&& rm genymotion.bin
 COPY genymotion/generate_config.sh genymotion/geny_start.sh genymotion/enable_adb.sh /root/
