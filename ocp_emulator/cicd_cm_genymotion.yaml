@@ -6,4 +6,4 @@ metadata:
     metrics: "genymotion"
     app: "cicd-genymotion"
     version: "3.0.1"
-  namespace: appium server
+  namespace: appium-server
