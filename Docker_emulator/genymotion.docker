@@ -4,12 +4,14 @@ LABEL maintainer "Tester"
 
 ENV GENY_VERSION=3.0.1
 
-#RUN apt-get update && apt-get install -y --no-install-recommends
+
 #RUN ca-certificates
 #RUN linux-headers-4.4.0-22-generic
 #RUN openssl
 #RUN wget
 
+
+RUN apt-get upgrade && apt-get install -y --no-install-recommends
 RUN apt-get install -y xterm
 RUN apt-get install -y supervisor
 RUN	apt-get install -y socat 
