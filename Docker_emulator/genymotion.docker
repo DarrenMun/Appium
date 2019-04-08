@@ -16,7 +16,7 @@ RUN echo "Completed First Step"
 
 RUN echo "Installing Virtual Box"
 
-RUN wget -nv -O genymotion.bin "https://dl.genymotion.com/releases/genymotion-${GENYMOTION_VERSION}/genymotion-${GENYMOTION_VERSION}-linux_x64.bin" \
+RUN wget -O --directory-prefix=/tmp/ "http://files2.genymotion.com/genymotion/genymotion-${GENYMOTION_VERSION}/genymotion-${GENYMOTION_VERSION}-linux_x64.bin" \
 	&& chmod +x ./genymotion.bin \
  	&& yes | ./genymotion.bin \
  	&& rm genymotion.bin
