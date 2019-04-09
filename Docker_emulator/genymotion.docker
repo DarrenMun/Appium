@@ -2,20 +2,20 @@ FROM ubuntu:18.04
 
 WORKDIR /root
 
-RUN apt-get update && apt-get install --no-install-recommends \
-    xterm \ 
-    supervisor \
-    socat \
-    keychain \
-    bzip2 \
-    x11vnc \
-    openbox \
-    menu \
-    python-numpy \
-    net-tools \
-    ffmpeg \
-    jq \
- && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y
+RUN	apt-get install -y xterm  
+RUN	apt-get install -y supervisor 
+RUN	apt-get install -y socat 
+RUN	apt-get install -y keychain
+RUN	apt-get install -y bzip2 
+RUN	apt-get install -y x11vnc
+RUN	apt-get install -y openbox
+RUN	apt-get install -y menu
+RUN	apt-get install -y python-numpy
+RUN	apt-get install -y net-tools
+RUN	apt-get install -y ffmpeg
+RUN	apt-get install -y jq
+RUN	apt-get install -y rm -rf /var/lib/apt/lists/*
 
 ENV NOVNC_SHA="b403cb92fb8de82d04f305b4f14fa978003890d7" \
     WEBSOCKIFY_SHA="558a6439f14b0d85a31145541745e25c255d576b"
