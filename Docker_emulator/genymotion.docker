@@ -1,24 +1,61 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
-ENV DEBIAN_FRONTEND noninteractive
+WORKDIR /root
+
+RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
+    xterm \ 
+    supervisor \
+    socat \
+    keychain \
+    bzip2 \
+    x11vnc \
+    openbox \
+    menu \
+    python-numpy \
+    net-tools \
+    ffmpeg \
+    jq \
+ && rm -rf /var/lib/apt/lists/*
+
+ENV NOVNC_SHA="b403cb92fb8de82d04f305b4f14fa978003890d7" \
+    WEBSOCKIFY_SHA="558a6439f14b0d85a31145541745e25c255d576b"
+RUN  wget -nv -O noVNC.zip "https://github.com/kanaka/noVNC/archive/${NOVNC_SHA}.zip" \
+ && unzip -x noVNC.zip \
+ && rm noVNC.zip  \
+ && mv noVNC-${NOVNC_SHA} noVNC \
+ && wget -nv -O websockify.zip "https://github.com/kanaka/websockify/archive/${WEBSOCKIFY_SHA}.zip" \
+ && unzip -x websockify.zip \
+ && mv websockify-${WEBSOCKIFY_SHA} ./noVNC/utils/websockify \
+ && rm websockify.zip \
+ && ln noVNC/vnc_auto.html noVNC/index.html
 
 
-# Base packages for noVNC
-RUN apt-get update -y && \
-    apt-get install -y git x11vnc wget python python-numpy unzip xvfb openbox menu net-tools && \
-    cd /root && git clone https://github.com/kanaka/noVNC.git && \
-    cd noVNC/utils && git clone https://github.com/kanaka/websockify websockify 
+ARG APP_RELEASE_VERSION=1.5-p0
+ENV DISPLAY=:0 \
+    SCREEN=0 \
+    SCREEN_WIDTH=1600 \
+    SCREEN_HEIGHT=900 \
+    SCREEN_DEPTH=16 \
+    LOCAL_PORT=5900 \
+    TARGET_PORT=6080 \
+    TIMEOUT=1 \
+    VIDEO_PATH=/tmp/video \
+    LOG_PATH=/var/log/supervisor \
+    GA=true \
+    GA_ENDPOINT=https://www.google-analytics.com/collect \
+    GA_TRACKING_ID=UA-133466903-1 \
+    GA_API_VERSION="1" \
+    APP_RELEASE_VERSION=$APP_RELEASE_VERSION \
+    APP_TYPE=Genymotion
 
-ADD Docker_emulator/startup.sh /startup.sh
-ADD Docker_emulator/app-startup.sh /app-startup.sh
-
-# Make things executable and clean up
-RUN cd /root && \
-    chmod 0755 /*.sh && \
-    apt-get autoclean && \
-    apt-get autoremove && \
-    rm -rf /var/lib/apt/lists/*
-
-ENV SCREEN_SIZE 1600x900x16
-EXPOSE 80
-CMD Docker_emulator/startup.sh
+RUN echo | ssh-keygen -q
+ARG GENYMOTION_VERSION=3.0.1
+ENV GENYMOTION=true \
+    GENYMOTION_VERSION=$GENYMOTION_VERSION \
+    PATH="${PATH}:/opt/genymobile/genymotion/" \
+    APPIUM_LOG=$LOG_PATH/appium.log
+RUN wget -nv -O genymotion.bin "https://dl.genymotion.com/releases/genymotion-${GENYMOTION_VERSION}/genymotion-${GENYMOTION_VERSION}-linux_x64.bin" \
+ && chmod +x ./genymotion.bin \
+ && yes | ./genymotion.bin \
+ && rm genymotion.bin
+COPY genymotion/generate_config.sh genymotion/geny_start.sh genymotion/enable_adb.sh /root/
