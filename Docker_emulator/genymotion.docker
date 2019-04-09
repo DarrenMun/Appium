@@ -24,10 +24,12 @@ RUN apt-get update &&  apt-get -y install xvfb \
                        net-tools && \
                        rm -rf /var/lib/apt/lists/*
 ADD Docker_emulator/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
+RUN ls -lah 
 ENV DISPLAY :0.0
 
 WORKDIR /root/
+
+RUN ls -lah
 ADD novnc /root/novnc/
 
 # Expose Port
