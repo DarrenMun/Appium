@@ -9,6 +9,9 @@ metadata:
   annotations:
     description: "Builds the MongoDB ebis container."
     template.alpha.openshift.io/wait-for-ready: "true"
+resources:
+  requests:
+    ephemeral-storage: "512Mi"
 spec:
   source:
     git:
