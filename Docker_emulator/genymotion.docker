@@ -2,7 +2,6 @@ FROM ubuntu:18.04
 
 WORKDIR /root
 
-RUN apt-get update && apt-get upgrade -y
 RUN	apt-get install -y xterm  
 RUN	apt-get install -y supervisor 
 RUN	apt-get install -y socat 
