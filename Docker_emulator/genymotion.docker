@@ -48,6 +48,7 @@ COPY Docker_emulator/container ./
 RUN ls -lah
 
 RUN chmod +x ./entrypoint.sh
+RUN chmod +x /usr/bin/supervisord
 
 EXPOSE 5554 5555
 ENTRYPOINT ["/entrypoint.sh"]
