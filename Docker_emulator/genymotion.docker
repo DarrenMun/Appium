@@ -28,10 +28,10 @@ ENV SDK_VERSION=$SDK_VERSION \
     ANDROID_BUILD_TOOLS_VERSION=$ANDROID_BUILD_TOOLS_VERSION \
     ANDROID_HOME=/root
 
-RUN wget -O tools.zip https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip && \
-    unzip tools.zip && rm tools.zip && \
-    chmod a+x -R $ANDROID_HOME && \
-    chown -R root:root $ANDROID_HOME
+#RUN wget -O tools.zip https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip && \
+#    unzip tools.zip && rm tools.zip && \
+#   chmod a+x -R $ANDROID_HOME && \
+#    chown -R root:root $ANDROID_HOME
 
 ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
 
