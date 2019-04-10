@@ -7,3 +7,9 @@ metadata:
     app: "cicd-genymotion"
     version: "3.0.1"
   namespace: appium-server
+    apiServerArguments:
+       feature-gates:
+       - LocalStorageCapacityIsolation=true
+     controllerArguments:
+       feature-gates:
+       - LocalStorageCapacityIsolation=true
