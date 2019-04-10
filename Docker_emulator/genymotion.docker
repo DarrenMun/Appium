@@ -5,6 +5,7 @@ USER root
 
 RUN apt-get update && apt-get upgrade -y
 RUN	apt-get install -y wget
+RUN apt-get install git
 RUN apt-get install -y libqt5widgets5 socat supervisor net-tools \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists /var/cache/apt
