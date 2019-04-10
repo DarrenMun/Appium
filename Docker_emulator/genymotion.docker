@@ -43,7 +43,7 @@ RUN git clone https://github.com/novnc/websockify.git utils/websockify
 
 RUN ls -lah
 
-COPY Docker_emulator/container /
+COPY Docker_emulator/container ./
 EXPOSE 5554 5555
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord"]
