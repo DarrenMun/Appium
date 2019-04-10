@@ -18,12 +18,20 @@ ENV ABI="x86_64" \
     noVNC="false"
 
 
-RUN mkdir -p ~/.android \
- && touch ~/.android/repositories.cfg \
- && $ANDROID_HOME/tools/bin/sdkmanager --verbose \
-        "tools" \
-        "platforms;${TARGET}" \
-        "system-images;${TARGET};${TAG};${ABI}"
+ARG SDK_VERSION=sdk-tools-linux-3859397
+ARG ANDROID_BUILD_TOOLS_VERSION=26.0.0
+ARG ANDROID_PLATFORM_VERSION="android-25"
+
+ENV SDK_VERSION=$SDK_VERSION \
+    ANDROID_BUILD_TOOLS_VERSION=$ANDROID_BUILD_TOOLS_VERSION \
+    ANDROID_HOME=/root
+
+RUN wget -O tools.zip https://dl.google.com/android/repository/${SDK_VERSION}.zip && \
+    unzip tools.zip && rm tools.zip && \
+    chmod a+x -R $ANDROID_HOME && \
+    chown -R root:root $ANDROID_HOME
+
+ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
 
 RUN git clone https://github.com/novnc/noVNC.git \
  && cd noVNC \
