@@ -9,11 +9,12 @@ spec:
   ports:
   - name: 4723-http
     port: 4723
+    nodePort: 30036
     protocol: TCP
     targetPort: 4723
   selector:
     metrics: appium
   sessionAffinity: None
-  type: ClusterIP
+  type: NodePort
 status:
   loadBalancer: {}
