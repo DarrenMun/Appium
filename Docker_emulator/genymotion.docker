@@ -35,10 +35,10 @@ ENV SDK_VERSION=$SDK_VERSION \
 
 ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
 
-RUN git clone https://github.com/novnc/noVNC.git \
- && cd noVNC \
- && git checkout v0.6.2 \
- && git clone https://github.com/novnc/websockify.git utils/websockify
+RUN git clone https://github.com/novnc/noVNC.git
+RUN cd noVNC \
+RUN git checkout v0.6.2 \
+RUN git clone https://github.com/novnc/websockify.git utils/websockify
 
 ADD container /
 EXPOSE 5554 5555
