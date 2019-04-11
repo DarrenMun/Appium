@@ -64,7 +64,7 @@ RUN wget -nv -O genymotion.bin "https://dl.genymotion.com/releases/genymotion-${
  && yes | ./genymotion.bin \
  && rm genymotion.bin
 
-RUN mkdir test
+RUN mkdir -p test
 COPY Docker_emulator/generate_config.sh Docker_emulator/geny_start.sh Docker_emulator/enable_adb.sh /test/
 
 EXPOSE 4723 6080 5555
