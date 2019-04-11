@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # This script is needed because of https://www.ctl.io/developers/blog/post/gracefully-stopping-docker-containers/
 
 types=(saas aws)
