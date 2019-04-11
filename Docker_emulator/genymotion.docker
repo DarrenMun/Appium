@@ -71,13 +71,21 @@ RUN ls -lah
 
 COPY Docker_emulator/src /root/src
 COPY Docker_emulator/supervisord.conf /root/
+RUN cd /root/
+RUN ls -lah
 RUN chmod -R +x /root/src && chmod +x /root/supervisord.conf /root/geny_start.sh
 RUN gmtool --cloud config use_custom_sdk=on sdk_path=/root
 
 
 RUN ls -lah
 
-CMD ["./geny_start.sh"]
+CMD ["/root/geny_start.sh"]
+
+
+
+
+
+
 
 
 # Specify the binary we want to use
