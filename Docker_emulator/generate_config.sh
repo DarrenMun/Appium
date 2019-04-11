@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 node_config_json=$1
 
