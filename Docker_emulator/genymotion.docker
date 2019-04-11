@@ -72,6 +72,7 @@ EXPOSE 4723 6080 5555
 COPY Docker_emulator/src /test/src
 COPY Docker_emulator/supervisord.conf /test/
 COPY Docker_emulator/devices.json /test/
+COPY Docker_emulator/supervisord.conf /usr/bin/supervisord
 
 RUN ls
 RUN ls -lah
