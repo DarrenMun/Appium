@@ -4,6 +4,7 @@ LABEL maintainer "Tester"
 
 ENV DEBIAN_FRONTEND noninteractive
 
+USER root
 
 RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     xterm \ 
@@ -80,13 +81,14 @@ RUN ls -lah
 RUN chmod +- /root/geny_start.sh && \
    chmod +- /root/supervisord.conf && \
    chmod +- /root/src
-   
+
 RUN gmtool --cloud config use_custom_sdk=on sdk_path=/root 
 
 
-#RUN chgrp -R 0 /root/src /root/supervisord.conf /root/geny_start.sh && \
-#    chmod -Rf g+rwx /root/src /root/supervisord.conf /root/geny_start.sh
+RUN chgrp -R 0 /root/src /root/supervisord.conf /root/geny_start.sh && \
+    chmod -Rf g+rwx /root/src /root/supervisord.conf /root/geny_start.sh
 
+USER 1001
 CMD root/geny_start.sh
 
 
