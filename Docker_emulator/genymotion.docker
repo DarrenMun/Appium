@@ -62,15 +62,18 @@ RUN wget -nv -O genymotion.bin "https://dl.genymotion.com/releases/genymotion-${
  && yes | ./genymotion.bin \
  && rm genymotion.bin
 
-
-RUN ls
-RUN ls -lah
-
 COPY Docker_emulator/generate_config.sh Docker_emulator/geny_start.sh Docker_emulator/enable_adb.sh /root/
 
 EXPOSE 4723 6080 5555
 
+RUN ls
+RUN ls -lah
 
+COPY Docker_emulator/src /root/src
+COPY Docker_emulator/supervisord.conf /root/
+RUN chmod -R +x /root/src && chmod +x /root/supervisord.conf /root/geny_start.sh
+RUN gmtool --cloud config use_custom_sdk=on sdk_path=/root
+CMD ["./geny_start.sh"]
 
 
 # Specify the binary we want to use
