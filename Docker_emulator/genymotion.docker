@@ -72,10 +72,13 @@ RUN ls -lah
 COPY Docker_emulator/src /root/src
 COPY Docker_emulator/supervisord.conf /root/
 RUN cd root \ && ls -lah
-RUN chmod -R +x /root/src && chmod +x /root/supervisord.conf 
-RUN chmod +x /root/geny_start.sh
+#RUN chmod -R +x /root/src && chmod +x /root/supervisord.conf 
+#RUN chmod +x /root/geny_start.sh
 RUN gmtool --cloud config use_custom_sdk=on sdk_path=/root
 
+
+RUN chgrp -R 0 /root/src /root/supervisord.conf /root/geny_start.sh && \
+    chmod -Rf g+rwx /root/src /root/supervisord.conf /root/geny_start.sh
 CMD /root/geny_start.sh
 
 
