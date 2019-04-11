@@ -12,10 +12,10 @@ TYPE=$(echo "$TYPE" | tr '[:upper:]' '[:lower:]')
 if [ -z "$TEMPLATE" ]; then
     case $TYPE in
     "${types[0]}" )
-        TEMPLATE="/root/tmp/devices.json"
+        TEMPLATE="/test/devices.json"
         ;;
     "${types[1]}" )
-        TEMPLATE="/root/tmp/aws.json"
+        TEMPLATE="/test/aws.json"
         ;;
     *)
         "Type $TYPE is not supported! Valid types: ${types[@]}"
