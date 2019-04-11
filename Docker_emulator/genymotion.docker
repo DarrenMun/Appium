@@ -1,40 +1,112 @@
 FROM ubuntu:16.04
+
 MAINTAINER tester
 
-# Specify the binary we want to use
-ENV GENY_VERSION=3.0.1
+ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        ca-certificates \
-        linux-headers-4.4.0-22-generic \
-        openssl \
-        wget \
-    \
+RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
+    xterm \ 
+    supervisor \
+    socat \
+    keychain \
+    bzip2 \
+    x11vnc \
+    openbox \
+    menu \
+    python-numpy \
+    net-tools \
+    ffmpeg \
+    jq \
+ && rm -rf /var/lib/apt/lists/*
+
+
+
+ENV NOVNC_SHA="b403cb92fb8de82d04f305b4f14fa978003890d7" \
+    WEBSOCKIFY_SHA="558a6439f14b0d85a31145541745e25c255d576b"
+RUN  wget -nv -O noVNC.zip "https://github.com/kanaka/noVNC/archive/${NOVNC_SHA}.zip" \
+ && unzip -x noVNC.zip \
+ && rm noVNC.zip  \
+ && mv noVNC-${NOVNC_SHA} noVNC \
+ && wget -nv -O websockify.zip "https://github.com/kanaka/websockify/archive/${WEBSOCKIFY_SHA}.zip" \
+ && unzip -x websockify.zip \
+ && mv websockify-${WEBSOCKIFY_SHA} ./noVNC/utils/websockify \
+ && rm websockify.zip \
+ && ln noVNC/vnc_auto.html noVNC/index.html
+
+
+ARG APP_RELEASE_VERSION=1.5-p0
+ENV DISPLAY=:0 \
+    SCREEN=0 \
+    SCREEN_WIDTH=1600 \
+    SCREEN_HEIGHT=900 \
+    SCREEN_DEPTH=16 \
+    LOCAL_PORT=5900 \
+    TARGET_PORT=6080 \
+    TIMEOUT=1 \
+    VIDEO_PATH=/tmp/video \
+    LOG_PATH=/var/log/supervisor \
+    GA=true \
+    GA_ENDPOINT=https://www.google-analytics.com/collect \
+    GA_TRACKING_ID=UA-133466903-1 \
+    GA_API_VERSION="1" \
+    APP_RELEASE_VERSION=$APP_RELEASE_VERSION \
+    APP_TYPE=Genymotion
+
+
+
+RUN ls -lah
+
+RUN echo | ssh-keygen -q
+ARG GENYMOTION_VERSION=3.0.1
+ENV GENYMOTION=true \
+    GENYMOTION_VERSION=$GENYMOTION_VERSION \
+    PATH="${PATH}:/opt/genymobile/genymotion/" \
+    APPIUM_LOG=$LOG_PATH/appium.log
+RUN wget -nv -O genymotion.bin "https://dl.genymotion.com/releases/genymotion-${GENYMOTION_VERSION}/genymotion-${GENYMOTION_VERSION}-linux_x64.bin" \
+ && chmod +x ./genymotion.bin \
+ && yes | ./genymotion.bin \
+ && rm genymotion.bin
+COPY genymotion/generate_config.sh genymotion/geny_start.sh genymotion/enable_adb.sh /root/
+
+EXPOSE 4723 6080 5555
+
+
+
+
+# Specify the binary we want to use
+#ENV GENY_VERSION=3.0.1
+
+#RUN apt-get update && apt-get install -y --no-install-recommends \
+#        ca-certificates \
+#        linux-headers-4.4.0-22-generic \
+#        openssl \
+#        wget \
+#    \
     # Install Virtual Box 5.0
-    && wget -q --directory-prefix=/tmp/ "https://dl.genymotion.com/releases/genymotion-${GENY_VERSION}/genymotion-${GENY_VERSION}-linux_x64.bin" \
-    && echo "deb http://download.virtualbox.org/virtualbox/debian xenial contrib" >> /etc/apt/sources.list \
-    && wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add - \
-    && wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add - \
-    && apt-get update && apt-get install -y \
-        virtualbox-5.0
+#   && wget -q --directory-prefix=/tmp/ "https://dl.genymotion.com/releases/genymotion-${GENY_VERSION}/genymotion-${GENY_VERSION}-linux_x64.bin" \
+#   && echo "deb http://download.virtualbox.org/virtualbox/debian xenial contrib" >> /etc/apt/sources.list \
+#    && wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add - \
+#   && wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add - \
+#  && apt-get update && apt-get install -y \
+#      virtualbox-5.0
 
 
     # Install Genymotion
-RUN mkdir -p /genymotion/ \
-    && apt-get install -y --no-install-recommends \
-        bzip2 \
-        libgstreamer-plugins-base0.10-dev \
-        libxcomposite-dev \
-        libxslt1.1
+#RUN mkdir -p /genymotion/ \
+ #   && apt-get install -y --no-install-recommends \
+ #       bzip2 \
+ #       libgstreamer-plugins-base0.10-dev \
+ #       libxcomposite-dev \
+ #       libxslt1.1
 
-RUN chmod +x /tmp/genymotion-${GENY_VERSION}-linux_x64.bin \
-    && mkdir -p /root/.Genymobile/ \
-    # Weird AUFs bug errors with 'file in use', fixed with sync command
-    && sync \
-    && echo 'Y' | /tmp/genymotion-${GENY_VERSION}-linux_x64.bin -d / \
-    \
+#RUN chmod +x /tmp/genymotion-${GENY_VERSION}-linux_x64.bin \
+#   && mkdir -p /root/.Genymobile/ \
+# Weird AUFs bug errors with 'file in use', fixed with sync command
+#   && sync \
+#   && echo 'Y' | /tmp/genymotion-${GENY_VERSION}-linux_x64.bin -d / \
+#   \
     
-RUN ls -lah
+
     # Cleanup
     #&& rm -f /tmp/genymotion-${GENY_VERSION}-linux_x64.bin \
     #&& apt-get autoremove -y --purge \
@@ -42,5 +114,5 @@ RUN ls -lah
     #&& apt-get clean \
     #&& rm -rf /var/lib/apt/lists/*
 
-VOLUME ["/tmp/.X11-unix", "/root/"]
-ENTRYPOINT ["/genymotion/genymotion"]
+#VOLUME ["/tmp/.X11-unix", "/root/"]
+#ENTRYPOINT ["/genymotion/genymotion"]
