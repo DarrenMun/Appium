@@ -78,7 +78,7 @@ RUN ls
 RUN ls -lah
 
 RUN chmod +- /test/geny_start.sh && \
-    chmod +- /test/supervisord.conf && \
+    chmod +- /usr/bin/supervisord.conf && \
     chmod +- /test/src
 
 RUN gmtool --cloud config use_custom_sdk=on sdk_path=/test 
