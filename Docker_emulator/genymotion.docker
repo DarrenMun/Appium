@@ -63,6 +63,8 @@ RUN wget -nv -O genymotion.bin "https://dl.genymotion.com/releases/genymotion-${
  && rm genymotion.bin
 COPY genymotion/generate_config.sh genymotion/geny_start.sh genymotion/enable_adb.sh /root/
 
+RUN ls -lah
+
 EXPOSE 4723 6080 5555
 
 
