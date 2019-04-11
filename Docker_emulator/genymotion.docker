@@ -64,32 +64,33 @@ RUN wget -nv -O genymotion.bin "https://dl.genymotion.com/releases/genymotion-${
  && yes | ./genymotion.bin \
  && rm genymotion.bin
 
-COPY Docker_emulator/generate_config.sh Docker_emulator/geny_start.sh Docker_emulator/enable_adb.sh /root/
+RUN mkdir test
+COPY Docker_emulator/generate_config.sh Docker_emulator/geny_start.sh Docker_emulator/enable_adb.sh /test/
 
 EXPOSE 4723 6080 5555
 
-COPY Docker_emulator/src /root/src
-COPY Docker_emulator/supervisord.conf /root
+COPY Docker_emulator/src /test/src
+COPY Docker_emulator/supervisord.conf /test/
 
-#RUN chmod -R +x /root/src && chmod +x /root/supervisord.conf 
-#RUN chmod -R +x /root/geny_start.sh
-#RUN gmtool --cloud config use_custom_sdk=on sdk_path=/root
+#RUN chmod -R +x /test/src && chmod +x /test/supervisord.conf 
+#RUN chmod -R +x /test/geny_start.sh
+#RUN gmtool --cloud config use_custom_sdk=on sdk_path=/test
 
 RUN ls
 RUN ls -lah
 
-RUN chmod +- /root/geny_start.sh && \
-   chmod +- /root/supervisord.conf && \
-   chmod +- /root/src
+RUN chmod +- /test/geny_start.sh && \
+   chmod +- /test/supervisord.conf && \
+   chmod +- /test/src
 
-RUN gmtool --cloud config use_custom_sdk=on sdk_path=/root 
+RUN gmtool --cloud config use_custom_sdk=on sdk_path=/test 
 
 
-RUN chgrp -R 0 /root/src /root/supervisord.conf /root/geny_start.sh && \
-    chmod -Rf g+rwx /root/src /root/supervisord.conf /root/geny_start.sh
+RUN chgrp -R 0 /test/src /test/supervisord.conf /test/geny_start.sh && \
+    chmod -Rf g+rwx /test/src /test/supervisord.conf /test/geny_start.sh
 
 USER 1001
-CMD root/geny_start.sh
+CMD test/geny_start.sh
 
 
 
