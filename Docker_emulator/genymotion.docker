@@ -81,13 +81,14 @@ RUN ls -lah
 
 RUN chmod +- /usr/bin/geny_start.sh && \
     chmod +- /usr/bin/supervisord.conf && \
-    chmod +- /usr/bin/src
+    chmod +- /usr/bin/src && \
+    chmod +- /var/log/supervisor
 
 RUN gmtool --cloud config use_custom_sdk=on sdk_path=/root 
 
 
-RUN chgrp -R 0 /usr/bin/src /usr/bin/supervisord.conf /usr/bin/geny_start.sh && \
-    chmod -Rf g+rwx /usr/bin/src /usr/bin/supervisord.conf /usr/bin/geny_start.sh
+RUN chgrp -R 0 /usr/bin/src /var/log /usr/bin/supervisord.conf /usr/bin/geny_start.sh && \
+    chmod -Rf g+rwx /usr/bin/src /usr/bin/supervisord.conf /usr/bin/geny_start.sh /var/log
 
 #RUN systemctl enable supervisor
 #RUN systemctl status supervisor
