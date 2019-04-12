@@ -83,8 +83,8 @@ RUN chmod +- /test/geny_start.sh && \
 RUN gmtool --cloud config use_custom_sdk=on sdk_path=/test 
 
 
-RUN chgrp -R 0 /test/src /test/supervisord.conf /test/geny_start.sh && \
-    chmod -Rf g+rwx /test/src /test/supervisord.conf /test/geny_start.sh
+RUN chgrp -R 0 /test/src /usr/bin/supervisord.conf /test/geny_start.sh && \
+    chmod -Rf g+rwx /test/src /usr/bin/supervisord.conf /test/geny_start.sh
 
 USER 1001
 CMD test/geny_start.sh
