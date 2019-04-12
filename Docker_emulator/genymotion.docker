@@ -19,15 +19,9 @@ ENV DEBIAN_FRONTEND noninteractive \
     GA_TRACKING_ID=UA-133466903-1 \
     GA_API_VERSION="1" \
     APP_RELEASE_VERSION=$APP_RELEASE_VERSION \
-    APP_TYPE=Genymotion \
-    GENYMOTION=true \
-    GENYMOTION_VERSION=$GENYMOTION_VERSION \
-    PATH="${PATH}:/opt/genymobile/genymotion/" \
-    APPIUM_LOG=$LOG_PATH/appium.log
+    APP_TYPE=Genymotion
 
-
-ARG APP_RELEASE_VERSION=1.5-p0 
-ARG GENYMOTION_VERSION=3.0.1
+ARG APP_RELEASE_VERSION=1.5-p0
 
 
 
@@ -63,10 +57,11 @@ RUN git clone https://github.com/novnc/noVNC.git \
 RUN ls -lah
 
 RUN echo | ssh-keygen -q
-
-
-
-
+ARG GENYMOTION_VERSION=3.0.1
+ENV GENYMOTION=true \
+    GENYMOTION_VERSION=$GENYMOTION_VERSION \
+    PATH="${PATH}:/opt/genymobile/genymotion/" \
+    APPIUM_LOG=$LOG_PATH/appium.log
 RUN wget -nv -O genymotion.bin "https://dl.genymotion.com/releases/genymotion-${GENYMOTION_VERSION}/genymotion-${GENYMOTION_VERSION}-linux_x64.bin" \
  && chmod +x ./genymotion.bin \
  && yes | ./genymotion.bin \
