@@ -2,7 +2,34 @@ FROM ubuntu:16.04
 
 LABEL maintainer "Tester"
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND noninteractive \
+    TYPE= saas
+    DISPLAY=:99 \
+    SCREEN=0 \
+    SCREEN_WIDTH=1600 \
+    SCREEN_HEIGHT=900 \
+    SCREEN_DEPTH=16 \
+    LOCAL_PORT=5900 \
+    TARGET_PORT=6080 \
+    TIMEOUT=1 \
+    VIDEO_PATH=/tmp/video \
+    LOG_PATH=/var/log/supervisor \
+    GA=true \
+    GA_ENDPOINT=https://www.google-analytics.com/collect \
+    GA_TRACKING_ID=UA-133466903-1 \
+    GA_API_VERSION="1" \
+    APP_RELEASE_VERSION=$APP_RELEASE_VERSION \
+    APP_TYPE=Genymotion \
+    GENYMOTION=true \
+    GENYMOTION_VERSION=$GENYMOTION_VERSION \
+    PATH="${PATH}:/opt/genymobile/genymotion/" \
+    APPIUM_LOG=$LOG_PATH/appium.log
+
+
+ARG APP_RELEASE_VERSION=1.5-p0 \
+    GENYMOTION_VERSION=3.0.1
+
+
 
 USER root
 
@@ -33,64 +60,42 @@ RUN git clone https://github.com/novnc/noVNC.git \
  && git checkout v0.6.2 \
  && git clone https://github.com/novnc/websockify.git utils/websockify
 
-
-ARG APP_RELEASE_VERSION=1.5-p0
-ENV DISPLAY=:99 \
-    SCREEN=0 \
-    SCREEN_WIDTH=1600 \
-    SCREEN_HEIGHT=900 \
-    SCREEN_DEPTH=16 \
-    LOCAL_PORT=5900 \
-    TARGET_PORT=6080 \
-    TIMEOUT=1 \
-    VIDEO_PATH=/tmp/video \
-    LOG_PATH=/var/log/supervisor \
-    GA=true \
-    GA_ENDPOINT=https://www.google-analytics.com/collect \
-    GA_TRACKING_ID=UA-133466903-1 \
-    GA_API_VERSION="1" \
-    APP_RELEASE_VERSION=$APP_RELEASE_VERSION \
-    APP_TYPE=Genymotion
-
-
-
 RUN ls -lah
 
 RUN echo | ssh-keygen -q
-ARG GENYMOTION_VERSION=3.0.1
-ENV GENYMOTION=true \
-    GENYMOTION_VERSION=$GENYMOTION_VERSION \
-    PATH="${PATH}:/opt/genymobile/genymotion/" \
-    APPIUM_LOG=$LOG_PATH/appium.log
+
+
+
+
 RUN wget -nv -O genymotion.bin "https://dl.genymotion.com/releases/genymotion-${GENYMOTION_VERSION}/genymotion-${GENYMOTION_VERSION}-linux_x64.bin" \
  && chmod +x ./genymotion.bin \
  && yes | ./genymotion.bin \
  && rm genymotion.bin
 
 RUN mkdir -p test
-COPY Docker_emulator/generate_config.sh Docker_emulator/geny_start.sh Docker_emulator/enable_adb.sh /test/
+COPY Docker_emulator/generate_config.sh Docker_emulator/geny_start.sh Docker_emulator/enable_adb.sh /usr/bin
 
 EXPOSE 4723 6080 5555 5900
 
-COPY Docker_emulator/src /test/src
-COPY Docker_emulator/supervisord.conf /test/
-COPY Docker_emulator/devices.json /test/
+COPY Docker_emulator/src /usr/bin/src
+COPY Docker_emulator/supervisord.conf /usr/bin
+COPY Docker_emulator/devices.json /usr/bin
 
 RUN ls
 RUN ls -lah
 
-RUN chmod +- /test/geny_start.sh && \
-    chmod +- /test/supervisord.conf && \
-    chmod +- /test/src
+RUN chmod +- /usr/bin/geny_start.sh && \
+    chmod +- /usr/bin/supervisord.conf && \
+    chmod +- /usr/bin/src
 
 RUN gmtool --cloud config use_custom_sdk=on sdk_path=/root 
 
 
-RUN chgrp -R 0 /test/src /test/supervisord.conf /test/geny_start.sh && \
-    chmod -Rf g+rwx /test/src /test/supervisord.conf /test/geny_start.sh
+RUN chgrp -R 0 /usr/bin/src /usr/bin/supervisord.conf /usr/bin/geny_start.sh && \
+    chmod -Rf g+rwx /usr/bin/src /usr/bin/supervisord.conf /usr/bin/geny_start.sh
 
 USER 1001
-CMD test/geny_start.sh
+CMD /usr/bin/geny_start.sh
 
 
 
