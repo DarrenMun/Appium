@@ -68,13 +68,13 @@ RUN wget -nv -O genymotion.bin "https://dl.genymotion.com/releases/genymotion-${
  && rm genymotion.bin
 
 RUN mkdir -p test
-COPY Docker_emulator/generate_config.sh Docker_emulator/geny_start.sh Docker_emulator/enable_adb.sh /usr/bin
+COPY Docker_emulator/generate_config.sh Docker_emulator/geny_start.sh Docker_emulator/enable_adb.sh /usr/bin/
 
 EXPOSE 4723 6080 5555 5900
 
 COPY Docker_emulator/src /usr/bin/src
-COPY Docker_emulator/supervisord.conf /usr/bin
-COPY Docker_emulator/devices.json /usr/bin
+COPY Docker_emulator/supervisord.conf /usr/bin/
+COPY Docker_emulator/devices.json /usr/bin/
 
 RUN ls
 RUN ls -lah
