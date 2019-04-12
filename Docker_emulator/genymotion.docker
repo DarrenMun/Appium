@@ -6,7 +6,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 USER root
 
-RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
+RUN cd /usr/bin/ \
+    apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     xterm \ 
     supervisor \
     socat \
@@ -21,6 +22,7 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     jq \
     wget \
     git \
+    xvfb \
     ca-certificates \
  && rm -rf /var/lib/apt/lists/*
 
@@ -32,7 +34,7 @@ RUN git clone https://github.com/novnc/noVNC.git \
 
 
 ARG APP_RELEASE_VERSION=1.5-p0
-ENV DISPLAY=:0 \
+ENV DISPLAY=:99 \
     SCREEN=0 \
     SCREEN_WIDTH=1600 \
     SCREEN_HEIGHT=900 \
