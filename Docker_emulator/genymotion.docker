@@ -3,7 +3,7 @@ FROM ubuntu:16.04
 LABEL maintainer "Tester"
 
 ENV DEBIAN_FRONTEND noninteractive \
-    TYPE= saas \
+    TYPE="saas" \
     DISPLAY=:99 \
     SCREEN=0 \
     SCREEN_WIDTH=1600 \
