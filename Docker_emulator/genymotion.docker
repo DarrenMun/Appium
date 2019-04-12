@@ -70,14 +70,14 @@ COPY Docker_emulator/generate_config.sh Docker_emulator/geny_start.sh Docker_emu
 EXPOSE 4723 6080 5555
 
 COPY Docker_emulator/src /test/src
-COPY Docker_emulator/supervisord.conf /test/
+COPY Docker_emulator/supervisord.conf usr/bin/
 COPY Docker_emulator/devices.json /test/
 
 RUN ls
 RUN ls -lah
 
 RUN chmod +- /test/geny_start.sh && \
-    chmod +- /test/supervisord.conf && \
+    chmod +- /usr/bin/supervisord.conf && \
     chmod +- /test/src
 
 RUN gmtool --cloud config use_custom_sdk=on sdk_path=/test 
