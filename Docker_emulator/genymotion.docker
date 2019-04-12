@@ -89,11 +89,12 @@ RUN gmtool --cloud config use_custom_sdk=on sdk_path=/root
 RUN chgrp -R 0 /usr/bin/src /usr/bin/supervisord.conf /usr/bin/geny_start.sh && \
     chmod -Rf g+rwx /usr/bin/src /usr/bin/supervisord.conf /usr/bin/geny_start.sh
 
-RUN cd /usr/bin
-RUN systemctl status supervisor
-RUN systemctl enable supervisor
-RUN systemctl status supervisor
-RUN systemctl start supervisor
+RUN cd /usr/bin && \
+    systemctl status supervisor
+
+#RUN systemctl enable supervisor
+#RUN systemctl status supervisor
+#RUN systemctl start supervisor
 
 USER 1001
 CMD /usr/bin/geny_start.sh
