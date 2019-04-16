@@ -8,6 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Set WORKDIR
 #=============
 WORKDIR /root
+USER root
 #==================
 # General Packages
 #------------------
@@ -66,12 +67,11 @@ RUN mkdir /.android
 RUN mkdir /.android/repositories.cfg && \
     echo y | sdkmanager "platform-tools" && \
     echo y | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION" && \
-    echo y | sdkmanager "platforms;$ANDROID_PLATFORM_VERSION"
+    echo y | sdkmanager "platforms;$ANDROID_PLATFORM_VERSION" && \
+    chmod a+x -R $ANDROID_HOME && \
+    chown -R root:root $ANDROID_HOME
 
 ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
-
-RUN chmod a+x -R $ANDROID_HOME && \
-    chown -R root:root $ANDROID_HOME
 
 #====================================
 # Install latest nodejs, npm, appium
