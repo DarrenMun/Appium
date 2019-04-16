@@ -59,6 +59,7 @@ ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
 WORKDIR /
 RUN touch ~/.android
 RUN touch ~/.android/repositories.cfg
+RUN ls -lah
 WORKDIR /root
 RUN echo y | sdkmanager "platform-tools"
 RUN echo y | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION"
