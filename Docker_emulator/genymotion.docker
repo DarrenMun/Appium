@@ -68,7 +68,7 @@ RUN wget -nv -O genymotion.bin "https://dl.genymotion.com/releases/genymotion-${
      && rm genymotion.bin
 
 RUN mkdir -p test
-COPY Docker_emulator/generate_config.sh Docker_emulator/geny_start.sh Docker_emulator/enable_adb.sh /test/
+COPY Docker_emulator/generate_config.sh Docker_emulator/geny_start.sh Docker_emulator/enable_adb.sh Docker_emulator/conf.d /test/
 
 EXPOSE 4723 6080 5555 5900
 
@@ -93,4 +93,4 @@ RUN chgrp -R 0 /usr/bin/src /var/log /usr/bin/supervisord.conf /usr/bin/geny_sta
 
 USER 1001
 
-CMD ["/usr/bin/supervisord -c /usr/bin/supervisord.conf", "/usr/bin/geny_start.sh"]
+CMD ["/usr/bin/supervisord -c /test/supervisord.conf", "/usr/bin/geny_start.sh"]
