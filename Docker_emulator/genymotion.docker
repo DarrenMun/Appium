@@ -95,5 +95,5 @@ RUN chgrp -R 0 /usr/bin/ /var/log /test/supervisord.conf /test/geny_start.sh && 
     chmod -Rf g+rwx /usr/bin/ /test/supervisord.conf /test/geny_start.sh /var/log
 
 USER 1001
-RU
-CMD ["/usr/bin/supervisord -c /test/supervisord.conf", "/test/geny_start.sh"]
+
+CMD ["./usr/bin/supervisord -c /test/supervisord.conf", "/test/geny_start.sh"]
