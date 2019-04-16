@@ -108,10 +108,10 @@ RUN chmod +x /root/entry_point.sh && \
     chmod +x /root/generate_config.sh && \
     chmod +x /root/wireless_connect.sh && \
     chmod +x /root/wireless_autoconnect.sh && \
-    chmod +x /
+    chmod +x ./
 
-RUN chgrp -R 0 /var/log/ /root && \
-    chmod -Rf g+rwx /var/log/ /root
+RUN chgrp -R 0 /var/log/ ./ && \
+    chmod -Rf g+rwx /var/log/ ./
 
 RUN ls 
 #========================================
