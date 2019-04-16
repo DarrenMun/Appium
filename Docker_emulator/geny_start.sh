@@ -58,4 +58,4 @@ getAbort() {
 }
 trap 'getAbort; exit' EXIT
 
-/usr/bin/supervisord --configuration /usr/bin/supervisord.conf
+exec supervisord -c /app/supervisord.conf
