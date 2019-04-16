@@ -83,7 +83,7 @@ COPY Docker_emulator/devices.json /test/
 RUN ls
 RUN ls -lah
 
-RUN chmod +- /usr/bin/geny_start.sh && \
+RUN chmod +- /test/geny_start.sh && \
     chmod +- /usr/bin/supervisord.conf && \
     chmod +- /usr/bin/src && \
     chmod +- /var/log/supervisor
